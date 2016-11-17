@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/andela-aolaniran/inverted-index/issues"
   },
-  "homepage": "https://github.com/andela-aolaniran/inverted-index#readme"
+  "homepage": "https://github.com/andela-aolaniran/inverted-index#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
 }
