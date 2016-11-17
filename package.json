@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/andela-aolaniran/inverted-index#readme",
   "devDependencies": {
+    "browser-sync": "^2.18.1",
     "gulp": "^3.9.1"
   }
 }
