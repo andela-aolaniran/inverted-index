@@ -9,7 +9,7 @@ gulp.task('default', ['test_files_watcher']);
 //gulp task to initialize browserSync instance for Test files
 gulp.task('test_files_watcher', function(){
 	//initialize a browser-sync instance
-	var browserSyncSource = browserSync.create();
+	var browserSyncJasmine = browserSync.create();
 	//Set up browser sync for jasmine test
     browserSyncJasmine.init({
   		server:{
@@ -29,12 +29,12 @@ gulp.task('test_files_watcher', function(){
 //gulp task to initialize browserSync instance for Source files
 gulp.task('source_files_watcher', function(){
 	//initialize a browser-sync instance
-	var browserSyncJasmine = browserSync.create();
+	var browserSyncSource = browserSync.create();
   	//Set up browser sync for src files
     browserSyncSource.init({
   		server:{
-  			baseDir: './src/html',
-  			index: 'index.html'
+  			baseDir: './src',
+  			index: 'html/index.html'
   		},
   		port: 3011,
   		ui:{
@@ -46,6 +46,6 @@ gulp.task('source_files_watcher', function(){
 	gulp.watch([
 		'./src/css/*.css',
 		'./src/html/index.html',
-		'./src/js/inverted-index.js'],
+		'./src/js/*.js'],
 		 browserSyncSource.reload);
 });
