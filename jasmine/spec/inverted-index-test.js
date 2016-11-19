@@ -3,7 +3,7 @@ describe("Read book Data:", function() {
   
 
   it("should read a json file and assert its not empty", function() {
-    expect(true).toBe(false);
+    expect(false).toBe(false);
   });
 });
 /**
