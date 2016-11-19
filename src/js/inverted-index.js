@@ -77,17 +77,19 @@ class InvertedIndex{
   *Method for building the index from the books json file
   */
   createIndex(booksArray){
-    //1 start with first document (doc1)
-    for(let i = 0; i < booksArray.length; i++){
-      //get all the strings in this book
-      let textArray = InvertedIndex.tokenize(InvertedIndex.getAllText(booksArray[i]));
-      for(let word of textArray){
-        this.addWordToIndex((i+1), word);
+      //1 start with first document (doc1)
+      this.mapIndex.clear(); //Clear existing values when we want to create a new index
+      for(let i = 0; i < booksArray.length; i++){
+        //get all the strings in this book
+        let textArray = InvertedIndex.tokenize(InvertedIndex.getAllText(booksArray[i]));
+        for(let word of textArray){
+          this.addWordToIndex((i+1), word);
+        }
       }
-    }
-    return this.mapIndex ;
+      return this.mapIndex ;
   }
 }
+
 
 //export default InvertedIndex;
 

@@ -7,15 +7,24 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
-<body ng-app="invertedIndexModule"  ng-controller="invertedIndexController as controller" class="header">
-<div class="header">
-    <h1>Inverted Index Web App</h1>  
-</div>
-</div>
-<div class="container-fluid">
+<body ng-app="invertedIndexModule"  ng-controller="invertedIndexController as controller">
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Inverted Index Web App</a>
+    </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span></span> By Azeez Olaniran</a></li>
+      </ul>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">
   <div class="row content">
     <div class="col-sm-3 sidenav">
       <label class="btn btn-info btn-default btn-file" style="width: 100%; margin-top: 1em">
@@ -23,66 +32,47 @@
 		</label>
 		<button class="btn-link" style="width: 100%; margin-top: 1em" ng-repeat="file in controller.uploadedFiles" ng-click="controller.createIndex(file)"> {{file.name.replace('.json', '')}}</button>
     </div>
-
-    <div class="col-sm-9" style="background-color: white; color: black; height: 100%">
-
+    <div class="col-sm-9 text-left main">
     <div ng-show="!controller.showIndexTable">
-    	<p>Welcome to the Inverted Index Web App...</p>
+    	<h2>Welcome to the Inverted Index Web App...</h2>
     	<ol>
     		<li>Upload Json Book Files from your machine by clicking the Upload Book Files button on the left</li>
     		<li>Generate an Index for the book file by clicking on the book in the upload list</li>
     		<li>Search the Index by entering a search query in the search field and press the search button</li>
-    		<li>Watch the app search through</li>
+    		<li>Wait for the search results to be displayed</li>
     	</ol>
     </div>
-      <div class="input-group" ng-show="controller.showIndexTable" style="margin-top: 1em">
+      <div class="input-group" ng-show="controller.showIndexTable">
         <input type="text" class="form-control" placeholder="Search Index" ng-model="controller.queryText">
         <span class="input-group-btn">
           <button class="btn btn-default" type="button" ng-click="controller.search(controller.queryText)">
             <span class="glyphicon glyphicon-search"></span>
           </button>
         </span>
-      </div>
-      <div ng-show="controller.showQueryTable">
-      <h4 class="result_header">Search Results</h4>
-      <table class="table table-responsive table-striped table-bordered" >
-      	<thead>
-      		<tr>
-      			<th>Word </th>
-				<th ng-repeat="docId in controller.headerArray">Doc {{docId + 1}}</th>      			
-      		</tr>
-      	</thead>
-      	<tbody>
-      	<tr ng-repeat="item in controller.searchResult"> <td>{{item[0]}}</td> <td ng-repeat="value in controller.headerArray"><span class="glyphicon glyphicon-{{item[1].has(value+1)?'ok':'remove'}}"></span></td></tr>
-      		
-      	</tbody>
-      </table>
-      </div>
+       </div>
       <hr>
-      <div style="min-height: 50%" ng-show="controller.showIndexTable">
+      <div ng-show="controller.showIndexTable">
     	<h4 class="result_header">Generated Index</h3>
-    	<table class="table table-responsive table-striped table-bordered" style="max-height: 30px; overflow-y:scroll;">
-      	<thead>
+
+      <div style="max-height: 500px; overflow-y: auto;" >
+    	<table class="table table-responsive table-striped table-bordered" style="max-height: 30px; overflow-y:scroll; text-align: center;">
+      	<thead style="background: black; color: white">
       		<tr>
-      			<th>Word </th>
-				<th ng-repeat="docId in controller.headerArray ">Doc {{docId + 1}}</th>      			
+      			<th style="text-align: center">Word </th>
+						<th ng-repeat="docId in controller.headerArray" style="text-align: center">Doc {{docId + 1}}</th>      			
       		</tr>
-      	</thead>
-      	<tbody>
-      	<tr ng-repeat="item in controller.createdIndex | filter:controller.queryText"> <td>{{item[0]}}</td> <td ng-repeat="value in controller.headerArray"><span class="glyphicon glyphicon-{{item[1].has(value+1)?'ok':'remove'}}"></span></td></tr>
+      	</thead>      	
+      	<tbody >
+      	<tr ng-repeat="item in controller.createdIndex"> <td>{{item[0]}}</td> <td ng-repeat="value in controller.headerArray"><span class="glyphicon glyphicon-{{item[1].has(value+1)?'ok':'remove'}}"></span></td></tr>
       		
       	</tbody>
       </table>
       </div>
-    </div>
-</div>
+      </div>
+  </div>
 </div>
 
-<footer class="container-fluid">
-  <p>Footer Text</p>
-</footer>
 <script src="../js/inverted-index.js"></script>
 <script src="../js/app.js"></script>
 </body>
 </html>
-
