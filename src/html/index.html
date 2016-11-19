@@ -8,40 +8,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-  <style>
-    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 1500px}
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      background-color: #f1f1f1;
-      height: 100%;
-    }    
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height: auto;}
-    }
-    .result_header {
-    	text-align: center;
-    	color: blue ;
-    }
-  </style>
+<link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
-<body ng-app="invertedIndexModule"  ng-controller="invertedIndexController as controller">
-
-
-<div class="page-header text-center">
+<body ng-app="invertedIndexModule"  ng-controller="invertedIndexController as controller" class="header">
+<div class="header">
     <h1>Inverted Index Web App</h1>  
 </div>
 </div>
@@ -49,15 +19,12 @@
   <div class="row content">
     <div class="col-sm-3 sidenav">
       <label class="btn btn-info btn-default btn-file" style="width: 100%; margin-top: 1em">
-    	Upload Book Files  <input type="file" style="display:none" id="file_loader" multiple><span class="glyphicon glyphicon-book"></span>
+    	Upload Book Files  <input id="file_browser" accept=".json" type="file" style="display:none" multiple on-file-change="controller.listFiles()"><span class="glyphicon glyphicon-book"></span>
 		</label>
-		<ul>
-			<li>  hello world</li>
-			<li> Welcome</li>
-		</ul>
+		<button class="btn-link" style="width: 100%; margin-top: 1em" ng-repeat="file in controller.uploadedFiles" ng-click="controller.createIndex(file)"> {{file.name.replace('.json', '')}}</button>
     </div>
 
-    <div class="col-sm-9">
+    <div class="col-sm-9" style="background-color: white; color: black; height: 100%">
 
     <div ng-show="!controller.showIndexTable">
     	<p>Welcome to the Inverted Index Web App...</p>
@@ -82,11 +49,11 @@
       	<thead>
       		<tr>
       			<th>Word </th>
-				<th ng-repeat="docId in controller.headerArray ">Doc {{docId + 1}}</th>      			
+				<th ng-repeat="docId in controller.headerArray">Doc {{docId + 1}}</th>      			
       		</tr>
       	</thead>
       	<tbody>
-      	<tr ng-repeat="item in controller.searchResult"> <td>{{item[0]}}</td> <td ng-repeat="value in controller.headerArray">{{item[1].has(value+1)}}</td></tr>
+      	<tr ng-repeat="item in controller.searchResult"> <td>{{item[0]}}</td> <td ng-repeat="value in controller.headerArray"><span class="glyphicon glyphicon-{{item[1].has(value+1)?'ok':'remove'}}"></span></td></tr>
       		
       	</tbody>
       </table>
@@ -102,7 +69,7 @@
       		</tr>
       	</thead>
       	<tbody>
-      	<tr ng-repeat="item in controller.createdIndex | filter:controller.queryText"> <td>{{item[0]}}</td> <td ng-repeat="value in controller.headerArray">{{item[1].has(value+1)}}</td></tr>
+      	<tr ng-repeat="item in controller.createdIndex | filter:controller.queryText"> <td>{{item[0]}}</td> <td ng-repeat="value in controller.headerArray"><span class="glyphicon glyphicon-{{item[1].has(value+1)?'ok':'remove'}}"></span></td></tr>
       		
       	</tbody>
       </table>
