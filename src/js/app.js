@@ -1,30 +1,14 @@
-var books = [{
-  "title": "Alice in Wonderland",
-  "text": "Alice falls into a rabbit hole and enters a world full of imagination."
-}, {
-  "title": "The Lord of the Rings: The Fellowship of the Ring.",
-  "text": "An unusual alliance of man, elf, dwarf, wizard and hobbit seek to destroy a powerful ring."
-}];
-
-angular.module('InvertedIndex', []).
-controller('main_controller', function main_controller(){
-	this.name = '';
-	this.math = new InvertedIndex();
-	this.indexFiles = '';
-	this.name = this.math.name ;
-	this.queryResultLength = 0;
-	this.createIndex = () =>{
-		let index = this.math.createIndex(books)
-		for (var [key, value] of index) {
-  			console.log(key + " : " + [...value]);
-		}
-      console.log('word exists');
-		this.indexFiles = index.size;
-	}
-
-	this.searchIndex = (query) =>{
-		console.log("searchIndex called :" + query);
-		console.log(query + " : " + [...this.math.searchIndex(query)]);
-		this.queryResultLength = this.math.searchIndex(query).size;
-	}
+angular.module('invertedIndexModule', []).
+controller('invertedIndexController', function main_controller(){
+	this.invertedIndex = new InvertedIndex();
+	this.books = books ;
+	this.searchResult ;
+	this.showIndexTable = true ;
+	this.showQueryTable = false ;
+	this.createdIndex = [...this.invertedIndex.createIndex(books)];//convert map to an array
+	this.headerArray = [...Array(books.length).keys()]
+	
+	this.search = (queryString) =>{
+		this.searchResult = [...this.invertedIndex.searchIndex(queryString)];
+	};
 });

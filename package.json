@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/istanbul/lib/cli.js cover ./node_modules/gulp-jasmine/node_modules/.bin/jasmine jasmine/spec/inverted-index-test.js",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+    "test": ""
   },
   "repository": {
     "type": "git",
@@ -25,5 +24,6 @@
     "browser-sync": "^2.18.1",
     "gulp": "^3.9.1",
     "jasmine-core": "^2.5.2"
-  }
+  },
+  "dependencies": {}
 }
