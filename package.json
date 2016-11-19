@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": ""
+    "test": "jasmine JASMINE_CONFIG_PATH=jasmine/spec/jasmine.json"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,6 @@
+{
+  "spec_dir": "jasmine/spec",
+  "spec_files": [
+    "inverted-index-test.js"
+  ]
+}
