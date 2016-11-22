@@ -58,11 +58,22 @@ class InvertedIndex{
   }
 
   /**
+  *
+  */
+  getIndex(){
+    return Array.from(this.mapIndex);
+  }
+
+  /**
   *Method for building the index from the books json file
   */
   createIndex(booksArray) {
     // 1 start with first document (doc1)
     this.mapIndex.clear(); // Clear existing values when we want to create a new index
+    /* if(
+      booksArray.length > 0 
+      && booksArray[0].title !== undefined 
+      && booksArray[0].text !== undefined {*/
     booksArray.forEach((value, index) => {
       // get all the strings in this book
       const textArray = InvertedIndex.tokenize(InvertedIndex.getAllText(value));
@@ -70,6 +81,7 @@ class InvertedIndex{
         this.addWordToIndex((index), word);
       });
     });
+  // }
     return Array.from(this.mapIndex);
   }
 }

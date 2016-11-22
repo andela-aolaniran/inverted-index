@@ -4,11 +4,10 @@
   "env": {
     "node": true,
     "es6": true,
-    "jasmine": true,
-    "browser": true 
+    "mocha": true
   },
   "rules": {
-    "max-len":["error", 80, 2],
+    "code":80,
     "indent": ["error", 2],
     "one-var": 0,
     "one-var-declaration-per-line": 0,

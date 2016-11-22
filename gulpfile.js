@@ -23,7 +23,7 @@ gulp.task('test_files_watcher', function(){
   	});
 
 	//reload SpecRunner.html in the browser whenever any of the jasmine spec test files change
-	gulp.watch('./jasmine/spec/inverted-index-test.js',  browserSyncJasmine.reload);
+	gulp.watch('./jasmine/spec/*.js',  browserSyncJasmine.reload);
 });
 
 //gulp task to initialize browserSync instance for Source files
