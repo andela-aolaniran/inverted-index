@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine JASMINE_CONFIG_PATH=jasmine/spec/jasmine.json"
+    "test": "node_modules/.bin/karma start karma.conf.js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,11 @@
     "gulp": "^3.9.1",
     "istanbul": "^0.4.5",
     "jasmine": "^2.5.2",
-    "jasmine-core": "^2.5.2"
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.3.0",
+    "karma-coverage": "^1.1.1",
+    "karma-coveralls": "^1.1.2",
+    "karma-jasmine": "^1.0.2"
   },
   "dependencies": {}
 }
