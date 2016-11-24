@@ -18,7 +18,7 @@ describe('Read book Data:', () => {
   });
   it('should read a json file and assert that it is not empty', () => {
     expect(invertedIndex.createIndex([])).toEqual([]);
-    expect(invertedIndex.createIndex({})).toequal([]);
+    expect(invertedIndex.createIndex("a")).toEqual([]);
   });
 });
 

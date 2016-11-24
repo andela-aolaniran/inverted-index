@@ -74,6 +74,9 @@ class InvertedIndex{
       booksArray.length > 0 
       && booksArray[0].title !== undefined 
       && booksArray[0].text !== undefined {*/
+    if(!Array.isArray(booksArray)){
+      return [];
+    }
     booksArray.forEach((value, index) => {
       // get all the strings in this book
       const textArray = InvertedIndex.tokenize(InvertedIndex.getAllText(value));
