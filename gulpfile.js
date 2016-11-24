@@ -6,7 +6,7 @@ const browserSync = require('browser-sync');
 gulp.task('default', ['test_files_watcher']);
 
 // create development task
-gulp.task('dev', ['test_files_watcher', 'source_files_watcer']);
+gulp.task('dev', ['test_files_watcher', 'source_files_watcher']);
 
 
 // gulp task to initialize browserSync instance for Test files
