@@ -53,8 +53,15 @@ module.exports = (config) => {
     // enable/disable watching file
     autoWatch: true,
 
+    customLaunchers: {
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    },
+
     // start these browsers depending on our enviroment
-    browsers: process.env.TRAVIS ? ['Chrome_travis_ci']: ['Chrome'],
+    browsers: process.env.TRAVIS ? ['Chrome_travis_ci'] : ['Chrome'],
 
 
     // Continuous Integration mode
