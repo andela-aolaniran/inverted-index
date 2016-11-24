@@ -10,8 +10,6 @@ class InvertedIndex{
     this.mapIndex = new Map();
     // array to hold list of files from the user
     this.files = [];
-
-    this.name='hello';
   }
   /**
    * Method to search for a particular string for now
