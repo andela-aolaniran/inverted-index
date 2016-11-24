@@ -30,6 +30,7 @@ module.exports = (config) => {
 
     // preprocess matching files before serving them to the browser
     preprocessors: {
+      'jasmine/src/js/inverted-index.js': 'coverage'
     },
 
     // test results reporter to use
