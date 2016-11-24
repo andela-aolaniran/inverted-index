@@ -1,3 +1,5 @@
+'use strict';
+
 // Karma configuration
 // Generated on Thu Nov 24 2016 06:53:29 GMT+0100 (WAT)
 
@@ -28,6 +30,7 @@ module.exports = (config) => {
 
     // preprocess matching files before serving them to the browser
     preprocessors: {
+      ''
     },
 
     // test results reporter to use

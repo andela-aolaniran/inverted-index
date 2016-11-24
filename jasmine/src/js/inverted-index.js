@@ -1,4 +1,5 @@
 'use strict';
+
 // Inverted index class to hold all functionalities expected
 class InvertedIndex{
   /**
