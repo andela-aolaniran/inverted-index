@@ -30,7 +30,6 @@ module.exports = (config) => {
 
     // preprocess matching files before serving them to the browser
     preprocessors: {
-      ''
     },
 
     // test results reporter to use
