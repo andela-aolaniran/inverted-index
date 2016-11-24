@@ -1,5 +1,3 @@
-'use strict';
-
 // Inverted index class to hold all functionalities expected
 class InvertedIndex{
   /**
@@ -38,9 +36,9 @@ class InvertedIndex{
 
   /**
   *Method to get all text(text and title) in a specific book
-  *@book 
+  *@book
   */
-  static getAllText(book){
+  static getAllText(book) {
     // Concatenate the book title and text
     return `${book.title} ${book.text}`;
   }
@@ -50,17 +48,20 @@ class InvertedIndex{
   *and also add it's docID.
   */
   addWordToIndex(docId, word) {
-    if (this.mapIndex.has(word)) { // check that this word hasn't been keyed
-      this.mapIndex.get(word).add(docId); // If it has been keyed just add a unique docId
+    // check that this word hasn't been keyed
+    if (this.mapIndex.has(word)) {
+      // If it has been keyed just add a unique docId
+      this.mapIndex.get(word).add(docId);
     } else {
-      this.mapIndex.set(word, new Set().add(docId)); // Use Set for the docId to ensure it is unique
+      // Use Set for the docId to ensure it is unique
+      this.mapIndex.set(word, new Set().add(docId));
     }
   }
 
   /**
   *
   */
-  getIndex(){
+  getIndex() {
     return Array.from(this.mapIndex);
   }
 
@@ -68,13 +69,10 @@ class InvertedIndex{
   *Method for building the index from the books json file
   */
   createIndex(booksArray) {
-    // 1 start with first document (doc1)
-    this.mapIndex.clear(); // Clear existing values when we want to create a new index
-    /* if(
-      booksArray.length > 0 
-      && booksArray[0].title !== undefined 
-      && booksArray[0].text !== undefined {*/
-    if(!Array.isArray(booksArray)){
+    // Clear existing values when we want to create a new index
+    this.mapIndex.clear();
+    // check that the input is an array
+    if (!Array.isArray(booksArray)) {
       return [];
     }
     booksArray.forEach((value, index) => {
@@ -84,9 +82,6 @@ class InvertedIndex{
         this.addWordToIndex((index), word);
       });
     });
-  // }
     return Array.from(this.mapIndex);
   }
 }
-// export default InvertedIndex ;
-
