@@ -1,13 +1,6 @@
-sudo: required
-dist: trusty
 language: node_js
 node_js:
-  - 6
-  - 5
-  - 4
-  - 3
-  - 2
-  - 1
+  - 4.2.3
 
 script: npm test
 
