@@ -5,6 +5,9 @@ const browserSync = require('browser-sync');
 // create default task
 gulp.task('default', ['test_files_watcher']);
 
+// create development task
+gulp.task('dev', ['test_files_watcher', 'source_files_watcer']);
+
 
 // gulp task to initialize browserSync instance for Test files
 gulp.task('test_files_watcher', () => {
@@ -13,7 +16,7 @@ gulp.task('test_files_watcher', () => {
   // Set up browser sync for jasmine test
   browserSyncJasmine.init({
     server: {
-      baseDir: './jasmine/',
+      baseDir: './jasmine',
       index: 'SpecRunner.html'
     },
     port: 3009,
@@ -34,7 +37,7 @@ gulp.task('source_files_watcher', () => {
   // Set up browser sync for src files
   browserSyncSource.init({
     server: {
-      baseDir: './src',
+      baseDir: './jasmine/src',
       index: 'html/index.html'
     },
     port: 3011,

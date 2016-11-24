@@ -36,7 +36,8 @@ describe('Search Index', () => {
   beforeEach(() => {
     invertedIndex.createIndex(book);
   });
-  it('searching the index returns an array of the indices of the correct objects that contain the words in the search query', () => {
+  it(`searching the index returns an array of the indices of the 
+    correct objects that contain the words in the search query`, () => {
     const searchResult = invertedIndex.searchIndex('alice in and elf man');
     expect(searchResult[0][0]).toEqual('alice');
     expect(searchResult[3][0]).toEqual('elf');
