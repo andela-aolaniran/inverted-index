@@ -1,6 +1,8 @@
-'use strict';
-// Inverted index class to hold all functionalities expected
-class InvertedIndex{
+/**
+* A class to implemnt search using
+* inverted index functionality
+*/
+class InvertedIndex {
   /**
   *Constructor for the inverted index class
   */

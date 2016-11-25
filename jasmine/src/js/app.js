@@ -1,5 +1,5 @@
 angular.module('invertedIndexModule', [])
-  .controller('invertedIndexController', function mainController($scope) {
+  .controller('invertedIndexController', ($scope) => {
     // inverted index model
     $scope.invertedIndex = new InvertedIndex();
     // Array to hold our files Index
