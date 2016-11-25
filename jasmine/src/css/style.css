@@ -27,3 +27,7 @@
       }
       .row.content {height:auto;}
     }
+
+    .feedback{
+      color: red;
+    }

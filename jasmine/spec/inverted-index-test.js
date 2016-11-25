@@ -1,34 +1,47 @@
-//const invertedIndex = new InvertedIndex();
 const book = [
   {
-    'title': 'Alice in Wonderland',
-    'text': 'Alice falls into a rabbit hole and enters a world full of imagination.'
+    title: 'Alice in Wonderland',
+    text: `Alice falls into a rabbit hole and enters
+     a world full of imagination.`
   },
 
   {
-    'title': 'The Lord of the Rings: The Fellowship of the Ring.',
-    'text': 'An unusual alliance of man, elf, dwarf, wizard and hobbit seek to destroy a powerful ring.'
+    title: 'The Lord of the Rings: The Fellowship of the Ring.',
+    text: `An unusual alliance of man, elf, dwarf,
+      wizard and hobbit seek to destroy a powerful ring.`
   }
 ];
+const book2 = [
+  {
+    title: 'Azeez is good',
+    text: `Wow, being Alive is cool. An opportunity
+      to create something that could possibly outlive me`
+  }
+];
+
+// Name of the bookfile
+const fileName = 'myBooks';
+const fileName2 = 'yourBooks';
+
+// create and instance of the InvertedIndex class
 const invertedIndex = new InvertedIndex();
 
 describe('Read book Data:', () => {
-  beforeEach(() => {
-    invertedIndex.createIndex(book);
-  });
   it('should read a json file and assert that it is not empty', () => {
-    expect(invertedIndex.createIndex([])).toEqual([]);
-    expect(invertedIndex.createIndex("a")).toEqual([]);
+    expect(invertedIndex.createIndex(fileName, [])).toEqual('Invalid File');
   });
 });
 
 describe('Populate Index', () => {
   beforeEach(() => {
-    invertedIndex.createIndex(book);
+    invertedIndex.createIndex(fileName, book);
   });
-  it('should map string keys to the correct objects', () => {
-    expect(Array.from(invertedIndex.getIndex()[30][1])[0]).toEqual(1);
-    expect(Array.from(invertedIndex.getIndex()[0][1])[0]).toEqual(0);
+  it(`verifies that the index is created once the JSON
+    file has been read`, () => {
+    expect(invertedIndex.getIndex(fileName, book))
+      .toBeTruthy();
+    expect(invertedIndex.getIndex(fileName2, book2))
+      .toBeFalsy();
   });
 });
 
@@ -36,12 +49,13 @@ describe('Search Index', () => {
   beforeEach(() => {
     invertedIndex.createIndex(book);
   });
-  it(`searching the index returns an array of the indices of the 
-    correct objects that contain the words in the search query`, () => {
-    const searchResult = invertedIndex.searchIndex('alice in and elf man');
-    expect(searchResult[0][0]).toEqual('alice');
-    expect(searchResult[3][0]).toEqual('elf');
-    expect(Array.from(searchResult[4][1])[0]).toEqual(1);
+  it('searches the index and returns the right results', () => {
+    const searchResult = invertedIndex
+      .searchIndex('alice in and elf man azeez', [fileName]);
+    expect(searchResult[fileName].alice).toEqual([0]);
+    expect(searchResult[fileName].and).toEqual([0, 1]);
+    expect(searchResult[fileName].azeez).toEqual([]);
+
   });
 });
 

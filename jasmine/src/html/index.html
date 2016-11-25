@@ -10,7 +10,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
-<body ng-app="invertedIndexModule"  ng-controller="invertedIndexController as controller">
+<body ng-app="invertedIndexModule"  ng-controller="invertedIndexController">
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -28,19 +28,23 @@
   <div class="row content">
     <div class="col-sm-4 sidenav">
       <label class="btn btn-info btn-default btn-file" style="width: 100%; margin-top: 1em">
-    	Upload Book Files  <input id="file_browser" accept=".json" type="file" style="display:none" multiple on-file-change="controller.listFiles()"><span class="glyphicon glyphicon-book"></span>
+    	Upload Book Files  <input id="file_browser" accept=".json" type="file" style="display:none" multiple on-file-change="listFiles()"><span class="glyphicon glyphicon-book"></span>
 		</label>
     <div class="input-group" style="width: 100%; margin-top: 1em">
-      <select  ng-model="controller.selectedFile" class="form-control" ng-options="file.name.replace('.json', '') for file in controller.uploadedFiles"> 
+      <select  ng-model="selectedFile" class="form-control" ng-options="file.name.replace('.json', '') for file in uploadedFiles"> 
       <option value="" selected="selected">Select a Book File</option>
       </select>            
       <span class="input-group-btn">
-        <button class="btn btn-primary" type="button" tabindex="-1" ng-click="controller.createIndex(controller.selectedFile)">Create Index <span class="glyphicon glyphicon-list-alt"></span></button>
+        <button class="btn btn-primary" type="button" tabindex="-1" ng-click="createIndex(selectedFile)">Create Index <span class="glyphicon glyphicon-list-alt"></span></button>
       </span>
     </div>
+      <div>
+        <h4>{{uploadedFiles.length > 0 ? uploadedFiles.length + ' Files Uploaded' : 'No Files Uploaded'}}</h4>
+      </div>
     </div>
     <div class="col-sm-8 text-left main">
-    <div ng-show="!controller.showIndexTable">
+    <!--Rely on if filesIndex is undefined or not before we show this section-->
+    <div ng-show="!filesIndex">
     	<h2>Welcome to the Inverted Index Web App...</h2>
     	<ol>
     		<li>Upload Json Book Files from your machine by clicking the Upload Book Files button on the left</li>
@@ -49,29 +53,50 @@
     		<li>Wait for the search results to be displayed</li>
     	</ol>
     </div>
-      <div class="input-group" ng-show="controller.showIndexTable">
-        <input type="text" class="form-control" placeholder="Search Index" ng-model="controller.queryText">
+      <div class="input-group" ng-show="filesIndex">
+      <span style="min-width: 100px" class="input-group-btn">
+          <select  ng-model="searchFile" class="form-control" ng-options="file.name.replace('.json', '') for file in indexedFiles"> 
+        <option value="" selected="selected">All</option>
+        </select> 
+        </span>
+        <input type="text" class="form-control" placeholder="Search Index" ng-model="queryText">
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button" ng-click="controller.search(controller.queryText)">
+          <button class="btn btn-default" type="button" ng-click="search(queryText, searchFile)">
             <span class="glyphicon glyphicon-search"></span>
           </button>
         </span>
        </div>
       <hr>
-      <div ng-show="controller.showIndexTable">
-    	<h4 class="result_header">{{controller.tableTitle}}</h3>
+      <!-- Table section.-->
+      <div ng-repeat="(key, value) in tableFiles">
+      <!-- title of File -->
+        <h4 style="text-align: center; min-width: 100%; ">File : {{ key.replace('.json', '')}}</h4>
+        <!-- Create table -->
+        <table class="table table-responsive table-striped table-bordered" style="max-height: 30px; overflow-y:scroll; text-align: center;">
+        <thead style="background: black; color: white">
+          <tr>
+            <th style="text-align: center">Word</th>
+            <!-- index[1] is a word<==>set map -->
+            <th style="text-align: center" ng-repeat="tableHead in tableHeader[key]">Doc {{tableHead + 1}}</th>            
+          </tr>
+        </thead>        
+        <tbody>
+        <tr ng-repeat="(key2, value2) in value"> <td>{{key2}}</td> <td ng-repeat="row in tableHeader[key]"><span class="glyphicon glyphicon-{{value2.indexOf(row) >= 0?'ok':'remove'}}"></span></td></tr>
+        </tbody>
+      </table>
+      </div>
 
+      <div ng-show="showIndexTable">
       <div style="max-height: 500px; overflow-y: auto;" >
     	<table class="table table-responsive table-striped table-bordered" style="max-height: 30px; overflow-y:scroll; text-align: center;">
       	<thead style="background: black; color: white">
       		<tr>
       			<th style="text-align: center">Word </th>
-						<th ng-repeat="docId in controller.headerArray" style="text-align: center">Doc {{docId + 1}}</th>      			
+						<th ng-repeat="docId in headerArray" style="text-align: center">Doc {{docId + 1}}</th>      			
       		</tr>
       	</thead>      	
-      	<tbody >
-      	<tr ng-repeat="item in controller.createdIndex"> <td>{{item[0]}}</td> <td ng-repeat="value in controller.headerArray"><span class="glyphicon glyphicon-{{item[1].has(value)?'ok':'remove'}}"></span></td></tr>
-      		
+      	<tbody>
+      	<tr ng-repeat="item in createdIndex"> <td>{{item[0]}}</td> <td ng-repeat="value in headerArray"><span class="glyphicon glyphicon-{{item[1].has(value)?'ok':'remove'}}"></span></td></tr>
       	</tbody>
       </table>
       </div>
