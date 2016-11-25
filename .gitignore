@@ -27,3 +27,5 @@ build/Release
 node_modules
 
 .DS_Store
+# Don't place repo token in git
+.coveralls.yml
