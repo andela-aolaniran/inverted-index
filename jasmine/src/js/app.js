@@ -25,7 +25,6 @@ angular.module('invertedIndexModule', [])
     */
     $scope.uploadFile = (filesObject) => {
       let uploaded = false;
-      $scope.invertedIndex.name = 'say hello again';
       const files = Array.from(filesObject.target.files);
       files.forEach((file) => {
         $scope.$apply(() => {
@@ -42,6 +41,7 @@ angular.module('invertedIndexModule', [])
     * @return {Boolean} true if index was successfully created, false otherwise
     */
     $scope.createIndex = (file) => {
+      let test = performance.now();
       let indexCreated = '';
       // Catch errors when reading files
       try {
