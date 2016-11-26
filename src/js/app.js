@@ -41,7 +41,6 @@ angular.module('invertedIndexModule', [])
     * @return {Boolean} true if index was successfully created, false otherwise
     */
     $scope.createIndex = (file) => {
-      let test = performance.now();
       let indexCreated = '';
       // Catch errors when reading files
       try {
