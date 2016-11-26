@@ -20,6 +20,40 @@ gulp.task('pipe_src_to_spec', () => {
     .pipe(gulp.dest('./jasmine/spec'));
 });
 
+// task to reload browser when ever
+// src files (.html, .css, .js) changes
+gulp.task('src_files_watcher', () => {
+  const srcServer = browserSync.create();
+  // Set up browser sync for src files
+  srcServer.init({
+    server: {
+      baseDir: './src/',
+      index: './html/index.html'
+    },
+    port: 3009
+  });
+  // reload index.html in the browser
+  // whenever any of the src files change
+  gulp.watch(['./src/js/*.js',
+    './src/html/*.html', './src/css/*.css'],
+    srcServer.reload);
+});
+
+// gulp task to reload the jasmine browser
+// whenever any of the spec test files change
+gulp.task('spec_files_watcher', () => {
+  const specServer = browserSync.create();
+  // set up browser sync for spec files
+  specServer.init({
+    server: {
+      baseDir: './jasmine/',
+      index: './SpecRunner.html'
+    },
+    port: 3011
+  });
+  gulp.watch('./jasmine/spec/*.js', specServer.reload);
+});
+
 
 /*
 // create default task
