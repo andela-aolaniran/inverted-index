@@ -17,20 +17,19 @@ module.exports = (config) => {
 
     // list of files / patterns to load in the browser
     files: [
-      'jasmine/src/js/*.js',
-      'jasmine/spec/*.js'
+      'jasmine/spec/inverted-index.js',
+      'jasmine/spec/inverted-index-test.js'
     ],
 
 
     // list of files to exclude
     exclude: [
-      'jasmine/src/js/app.js'
     ],
 
 
     // preprocess matching files before serving them to the browser
     preprocessors: {
-      'jasmine/src/js/inverted-index.js': 'coverage'
+      'jasmine/spec/inverted-index.js': 'coverage'
     },
 
     // test results reporter to use
