@@ -13,10 +13,14 @@ gulp.task('default', () => {
   });
 });
 
-gulp.task('pipe_src_to_dev', () => {
+// gulp task to pipe src file to the
+// jasmine spec directory
+gulp.task('pipe_src_to_spec', () => {
   gulp.src('./src/js/inverted-index.js')
     .pipe(gulp.dest('./jasmine/spec'));
 });
+
+
 /*
 // create default task
 gulp.task('default', ['test_files_watcher']);
