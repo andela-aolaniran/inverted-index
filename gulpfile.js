@@ -12,6 +12,11 @@ gulp.task('default', () => {
     port: 3013
   });
 });
+
+gulp.task('pipe_src_to_dev', () => {
+  gulp.src('./src/js/inverted-index.js')
+    .pipe(gulp.dest('./jasmine/spec'));
+});
 /*
 // create default task
 gulp.task('default', ['test_files_watcher']);
