@@ -36,7 +36,7 @@ gulp.task('src_files_watcher', () => {
   // whenever any of the src files change
   gulp.watch(['./src/js/*.js',
     './src/html/*.html', './src/css/*.css'],
-    srcServer.reload);
+    ['pipe_src_to_spec', srcServer.reload]);
 });
 
 // gulp task to reload the jasmine browser
