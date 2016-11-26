@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "gulp",
     "test": "node_modules/.bin/karma start karma.conf.js"
   },
   "repository": {

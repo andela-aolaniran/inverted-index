@@ -2,6 +2,17 @@
 const gulp = require('gulp');
 const browserSync = require('browser-sync');
 
+// default task to start the server
+gulp.task('default', () => {
+  browserSync.init({
+    server: {
+      baseDir: './src/',
+      index: 'html/index.html'
+    },
+    port: 3013
+  });
+});
+/*
 // create default task
 gulp.task('default', ['test_files_watcher']);
 
@@ -30,6 +41,13 @@ gulp.task('test_files_watcher', () => {
   gulp.watch('./jasmine/spec/*.js', browserSyncJasmine.reload);
 });
 
+// gulp task to pipe the inverted index src file
+// into the jasmine spec folder
+gulp.task('spec', () => {
+  gulp.src('./src/js/inverted-index.js')
+    .pipe(gulp.dest('./jasmine/spec'));
+});
+
 // gulp task to initialize browserSync instance for Source files
 gulp.task('source_files_watcher', () => {
   // initialize a browser-sync instance
@@ -37,7 +55,7 @@ gulp.task('source_files_watcher', () => {
   // Set up browser sync for src files
   browserSyncSource.init({
     server: {
-      baseDir: './jasmine/src',
+      baseDir: './src',
       index: 'html/index.html'
     },
     port: 3011,
@@ -52,5 +70,6 @@ gulp.task('source_files_watcher', () => {
     './src/css/*.css',
     './src/html/index.html',
     './src/js/*.js'],
-     browserSyncSource.reload);
+     [browserSyncSource.reload, 'spec']);
 });
+*/
