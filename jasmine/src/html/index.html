@@ -28,7 +28,8 @@
   <div class="row content">
     <div class="col-sm-4 sidenav">
       <label class="btn btn-info btn-default btn-file" style="width: 100%; margin-top: 1em">
-    	Upload Book Files  <input id="file_browser" accept=".json" type="file" style="display:none" multiple on-file-change="listFiles()"><span class="glyphicon glyphicon-book"></span>
+    	Upload Book Files  
+      <input id="file_browser" accept=".json" type="file" style="display:none" multiple><span class="glyphicon glyphicon-book"></span>
 		</label>
     <div class="input-group" style="width: 100%; margin-top: 1em">
       <select  ng-model="selectedFile" class="form-control" ng-options="file.name.replace('.json', '') for file in uploadedFiles"> 
