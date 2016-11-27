@@ -18,7 +18,7 @@ class InvertedIndex {
   */
   static tokenize(text) {
     return text.toLowerCase()
-      .replace(/[^\w\s]/g, '') // If it's not a space or a word remove it
+      .replace(/[^\w\s]/g, '') // If it's not a space/word/alphabet remove it
       .split(/\s+/); // split by spaces of any length
   }
 
@@ -36,41 +36,42 @@ class InvertedIndex {
   /**
   * Searches for indexes of a query string in a file or group of files
   * @param {String} queryString - words to search for.
-  * @param {Array} filesName - Names of files we want to search in
-  * @return {Map} - A map containing each file and the
+  * @param {Array} fileNames - Names of files we want to search in
+  * @return {Object} - An Object containing each file and the
   * indexes of words in the query string
   */
-  searchIndex(queryString, filesName) {
-    // Map to hold each file and their index of each word in the query string
-    const fileMapIndex = {};
+  searchIndex(queryString, fileNames) {
+    // Object to hold each file and their index of each word in the query string
+    const fileIndexResult = {};
     // Get an array which contains each word in the query string
     const tokens = InvertedIndex
       .tokenize(queryString);
     // for each file in the files we want to search
-    filesName.forEach((fileName) => {
-      // create a temporay map to hold our indexes
-      const builtMap = {};
-      // get the index map for this file
-      const fileMap = this.fileIndexes[fileName];
+    fileNames.forEach((fileName) => {
+      // create a temporay object to hold our indexes
+      const builtFileIndex = {};
+      // get the index object for this file
+      const fileIndex = this.fileIndexes[fileName];
       // loop through each word in our query string
       tokens.forEach((word) => {
-        // if the word exists, add it to the built map for our current file
-        if (fileMap[word]) {
-          builtMap[word] = fileMap[word];
+        // if the word exists, add it to the built file
+        // index for our current file
+        if (fileIndex[word]) {
+          builtFileIndex[word] = fileIndex[word];
         } else {
-          builtMap[word] = [];
+          builtFileIndex[word] = [];
         }
       });
-      // at this point we have a built map containing indexes of each
+      // at this point we have a built file index containing indexes of each
       // word in our query string for our current file
       // so add it to our overall map index for files
-      fileMapIndex[fileName] = builtMap;
-      // repeat all steps for the next file in our filesName array
+      fileIndexResult[fileName] = builtFileIndex;
+      // repeat all steps for the next file in our fileNames array
       // Yaay, I got it :)
     });
-    // at the end return our file names array with contains or indexes
+    // at the end return our file index object which contains index
     // for each word in our query string
-    return fileMapIndex;
+    return fileIndexResult;
   }
 
   /**
@@ -90,18 +91,18 @@ class InvertedIndex {
       return 'Index Already Exists';
     }
 
-    // Initialize a new map to hold indexes for this file
-    const mapIndex = {};
-    // start the map creation process
+    // Initialize a new object to hold indexes for this file
+    const fileIndex = {};
+    // start the index creation process
     booksArray.forEach((value, index) => {
       // get all the strings in this book
       const textArray = InvertedIndex.tokenize(InvertedIndex.getAllText(value));
       textArray.forEach((word) => {
-        InvertedIndex.addWordToIndexMap(mapIndex, word, index);
+        InvertedIndex.addWordToIndexMap(fileIndex, word, index);
       });
     });
     // add the created index to the map of all indexes
-    this.fileIndexes[fileName] = mapIndex;
+    this.fileIndexes[fileName] = fileIndex;
     return 'Index Created';
   }
 
