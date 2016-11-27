@@ -55,7 +55,6 @@ describe('Search Index', () => {
     expect(searchResult[fileName].alice).toEqual([0]);
     expect(searchResult[fileName].and).toEqual([0, 1]);
     expect(searchResult[fileName].azeez).toEqual([]);
-
   });
 });
 
