@@ -98,7 +98,7 @@ class InvertedIndex {
       // get all the strings in this book
       const textArray = InvertedIndex.tokenize(InvertedIndex.getAllText(value));
       textArray.forEach((word) => {
-        InvertedIndex.addWordToIndexMap(fileIndex, word, index);
+        InvertedIndex.addWordToFileIndex(fileIndex, word, index);
       });
     });
     // add the created index to the map of all indexes
@@ -127,23 +127,23 @@ class InvertedIndex {
 
   /**
   * Helper method to add a word and its docID to an index
-  * @param {Map} indexMap - Map to hold words and their indexes
-  * @param {String} word - Word to be added to the indexMap
+  * @param {Map} fileIndex - Map to hold words and their indexes
+  * @param {String} word - Word to be added to the fileIndex
   * @param {Number} docId - ID of document in which the word exists
   * @return {Boolean} True if word was added to the index map or false otherwise
   */
-  static addWordToIndexMap(indexMap, word, docId) {
+  static addWordToFileIndex(fileIndex, word, docId) {
     let returnValue = false;
     // check that this word hasn't been keyed
-    if (indexMap[word] && indexMap[word].indexOf(docId) < 0) {
+    if (fileIndex[word] && fileIndex[word].indexOf(docId) < 0) {
       // If it has been keyed just add a unique docId
-      indexMap[word].push(docId);
+      fileIndex[word].push(docId);
       returnValue = true;
     } else {
       // create a new array to hold our doc ID
       const docIds = [];
       docIds.push(docId);
-      indexMap[word] = docIds;
+      fileIndex[word] = docIds;
       returnValue = true;
     }
     return returnValue;
