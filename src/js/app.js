@@ -68,7 +68,7 @@ angular.module('invertedIndexModule', [])
           if (indexCreated === 'Index Created') {
             $scope.indexedFiles.push(file);
             $scope.tableHeader[file.name] = headerArray;
-            $scope.filesIndex = $scope.invertedIndex.filesMap;
+            $scope.filesIndex = $scope.invertedIndex.fileIndexes;
           } else {
             // Show user feed back
             $scope.indexingFeedback = indexCreated;

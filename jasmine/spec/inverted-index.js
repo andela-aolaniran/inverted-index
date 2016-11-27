@@ -7,10 +7,8 @@ class InvertedIndex {
   *Constructor for the inverted index class
   */
   constructor() {
-    // Map to hold word and a Set of documents they appear in
-    // this.mapIndex = new Map();
-    // array to hold list of files from the user
-    this.filesMap = {};
+    // Object to hold files and their Indexes
+    this.fileIndexes = {};
   }
 
   /**
@@ -53,7 +51,7 @@ class InvertedIndex {
       // create a temporay map to hold our indexes
       const builtMap = {};
       // get the index map for this file
-      const fileMap = this.filesMap[fileName];
+      const fileMap = this.fileIndexes[fileName];
       // loop through each word in our query string
       tokens.forEach((word) => {
         // if the word exists, add it to the built map for our current file
@@ -88,8 +86,8 @@ class InvertedIndex {
       return 'Invalid File';
     }
     // Don't create an index for an already existing file
-    if (this.filesMap[fileName]) {
-      return 'File Exists';
+    if (this.fileIndexes[fileName]) {
+      return 'Index Already Exists';
     }
 
     // Initialize a new map to hold indexes for this file
@@ -103,7 +101,7 @@ class InvertedIndex {
       });
     });
     // add the created index to the map of all indexes
-    this.filesMap[fileName] = mapIndex;
+    this.fileIndexes[fileName] = mapIndex;
     return 'Index Created';
   }
 
@@ -117,8 +115,8 @@ class InvertedIndex {
     // return the index map for the specific file
     // if it exists in our files map
     const fileIndex = {};
-    if (this.filesMap[fileName]) {
-      fileIndex[fileName] = this.filesMap[fileName];
+    if (this.fileIndexes[fileName]) {
+      fileIndex[fileName] = this.fileIndexes[fileName];
       return fileIndex;
     }
     // return an empty Map
