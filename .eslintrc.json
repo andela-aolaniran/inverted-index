@@ -16,15 +16,15 @@
     "consistent-return": 0,
     "no-param-reassign": 0,
     "comma-dangle": 0,
-    "curly": ["error", "multi-line"],
-    "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
-    "valid-jsdoc": ["error", {
+    "curly": [2, "multi-line"],
+    "no-shadow": [2, { "allow": ["req", "res", "err"] }],
+    "valid-jsdoc": [2, {
       "requireReturn": true,
       "requireReturnType": true,
       "requireParamDescription": false,
       "requireReturnDescription": true
     }],
-    "require-jsdoc": ["error", {
+    "require-jsdoc": [2, {
         "require": {
             "FunctionDeclaration": true,
             "MethodDefinition": true,
