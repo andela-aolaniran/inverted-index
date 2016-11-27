@@ -89,7 +89,7 @@ class InvertedIndex {
     }
     // Don't create an index for an already existing file
     if (this.filesMap[fileName]) {
-      return 'File Exists';
+      return 'Index Already Exists';
     }
 
     // Initialize a new map to hold indexes for this file

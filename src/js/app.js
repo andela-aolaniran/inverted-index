@@ -43,35 +43,41 @@ angular.module('invertedIndexModule', [])
     $scope.createIndex = (file) => {
       let indexCreated = '';
       // Catch errors when reading files
-      try {
-        const reader = new FileReader();
-        // Ensure we are in angular digest loop
-        // when we make changes so they can be reflected immediately
-        reader.onload = () => {
-          const jsonData = JSON.parse(reader.result);
-          // create an array to hold docIds based
-          // on on the number of books in  jsonData
-          const headerArray = Array.from(Array(jsonData.length).keys());
-          indexCreated = $scope.invertedIndex.createIndex(file.name, jsonData);
-          // make changes in the angular loop to see them
-          // reflected in view
-          $scope.$apply(() => {
-            // check to see that index was successfully created
-            if (indexCreated === 'Index Created') {
-              $scope.indexedFiles.push(file);
-              $scope.tableHeader[file.name] = headerArray;
-              $scope.filesIndex = $scope.invertedIndex.filesMap;
-            } else {
-              // Show user feed back
-            }
-            $scope.tableFiles = $scope.invertedIndex.getIndex(file.name);
-          });
-        };
-        // read file object
-        reader.readAsBinaryString(file);
-      } catch (err) {
-        // Catch errors
+      if (!file) {
+        $scope.indexingFeedback = 'Please select a file to generate index';
+        return;
       }
+      const reader = new FileReader();
+      reader.onload = () => {
+        let jsonData = {};
+        try {
+          jsonData = JSON.parse(reader.result);
+        } catch (err) {
+          $scope.indexingFeedback = 'Could not read invalid JSON file';
+          return;
+        }
+        $scope.indexingFeedback = '';
+        // create an array to hold docIds based
+        // on on the number of books in  jsonData
+        const headerArray = Array.from(Array(jsonData.length).keys());
+        indexCreated = $scope.invertedIndex.createIndex(file.name, jsonData);
+        // make changes in the angular loop to see them
+        // reflected in view
+        $scope.$apply(() => {
+          // check to see that index was successfully created
+          if (indexCreated === 'Index Created') {
+            $scope.indexedFiles.push(file);
+            $scope.tableHeader[file.name] = headerArray;
+            $scope.filesIndex = $scope.invertedIndex.filesMap;
+          } else {
+            // Show user feed back
+            $scope.indexingFeedback = indexCreated;
+          }
+          $scope.tableFiles = $scope.invertedIndex.getIndex(file.name);
+        });
+      };
+        // read file object
+      reader.readAsBinaryString(file);
       return indexCreated;
     };
 
