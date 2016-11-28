@@ -1,1 +1,5 @@
 node_modules/*
+./src/js/app.js
+./jasmine/lib/jasmine-2.3.4/*.js
+./gulpfile.js
+.karma.conf.js
