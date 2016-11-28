@@ -9,7 +9,7 @@ gulp.task('default', () => {
       baseDir: './src/',
       index: 'html/index.html'
     },
-    port: 3013
+    port: process.env.PORT || 3013
   });
 });
 

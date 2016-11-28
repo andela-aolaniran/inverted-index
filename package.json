@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node node_modules/gulp/bin/gulp",
+    "start": "gulp",
     "test": "node_modules/.bin/karma start karma.conf.js"
   },
   "repository": {
@@ -40,6 +40,8 @@
   },
   "dependencies": {
     "browser-sync": "^2.18.2",
-    "gulp": "^3.9.1"
+    "connect": "^3.5.0",
+    "gulp": "^3.9.1",
+    "nodemon": "^1.11.0"
   }
 }
