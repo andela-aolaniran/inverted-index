@@ -5,12 +5,13 @@ An inverted index (also referred to as postings file or inverted file) is an ind
 
 ### Usage
   - open terminal and navigate into the folder you want inverted-index installed and run the following commands [You must have node and npm installed]
+  - 
     ```
     $ git clone https://github.com/andela-aolaniran/inverted-index.git
     $ cd inverted-index
     $ npm install
     $ npm start
-    ```
+    
   - the inverted-index app is is loaded in your browser (optionally, open your browser and go to http://localhost:3013).
   - click the upload button and select valid book json files.
   - select the file the the selector by the left of the Create Index button
