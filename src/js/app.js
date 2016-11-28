@@ -10,8 +10,8 @@ angular.module('invertedIndexModule', [])
     // Array to hold files who's index have been created
     $scope.indexedFiles = [];
 
-    // Array to hold row headers for current table showed
-    $scope.tableFiles = [];
+    // Object to hold file names and their built index
+    $scope.tableFiles = {};
 
     // Object to hold table header based
     // number of books in a file
