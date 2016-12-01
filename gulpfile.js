@@ -16,7 +16,7 @@ gulp.task('default', () => {
 // gulp task to pipe src file to the
 // jasmine spec directory
 gulp.task('pipe_src_to_spec', () => {
-  gulp.src('./src/js/inverted-index.js')
+  gulp.src(['./src/js/inverted-index.js', './src/js/utility.js'])
     .pipe(gulp.dest('./jasmine/spec'));
 });
 

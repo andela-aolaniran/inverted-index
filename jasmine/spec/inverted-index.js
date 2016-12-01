@@ -11,27 +11,6 @@ class InvertedIndex {
   }
 
   /**
-  * Helper method to get an array of all words in a particular text
-  * @param {String} text - String to be normalized and tokenized
-  * @return {Array} - An array containing all texts in a string
-  */
-  static tokenize(text) {
-    return text.toLowerCase()
-      .replace(/[^\w\s]/g, '') // If it's not a space/word/alphabet remove it
-      .split(/\s+/); // split by spaces of any length
-  }
-
-  /**
-  * Helper method to get all text(text and title) in a specific book
-  * @param {Object} book - book object from which
-  * we want to extract all text (title and text)
-  * @return {String} - a string containing all texts in the book
-  */
-  static getAllText(book) {
-    return `${book.title} ${book.text}`;
-  }
-
-  /**
   * Searches for indexes of a query string in a file or group of files
   * @param {String} query - words to search for.
   * @param {Array} fileNames - Names of files we want to search in
@@ -40,7 +19,7 @@ class InvertedIndex {
   */
   searchIndex(query, fileNames) {
     const fileIndexResult = {};
-    const tokens = InvertedIndex.tokenize(query);
+    const tokens = Utility.tokenize(query);
     fileNames.forEach((fileName) => {
       const builtFileIndex = {};
       const fileIndex = this.fileIndexes[fileName];
@@ -72,9 +51,9 @@ class InvertedIndex {
 
     const fileIndex = {};
     books.forEach((value, index) => {
-      const words = InvertedIndex.tokenize(InvertedIndex.getAllText(value));
+      const words = Utility.tokenize(Utility.getAllText(value));
       words.forEach((word) => {
-        InvertedIndex.addWordToFileIndex(fileIndex, word, index);
+        Utility.addWordToFileIndex(fileIndex, word, index);
       });
     });
     this.fileIndexes[fileName] = fileIndex;
@@ -95,28 +74,6 @@ class InvertedIndex {
       }
     });
     return foundIndexes;
-  }
-
-
-  /**
-  * Helper method to add a word and its documentIndex to an index
-  * @param {Map} fileIndex - Map to hold words and their indexes
-  * @param {String} word - Word to be added to the fileIndex
-  * @param {Number} documentIndex - ID of document in which the word exists
-  * @return {Boolean} True if word was added to the index map or false otherwise
-  */
-  static addWordToFileIndex(fileIndex, word, documentIndex) {
-    let returnValue = false;
-    if (fileIndex[word] && fileIndex[word].indexOf(documentIndex) < 0) {
-      fileIndex[word].push(documentIndex);
-      returnValue = true;
-    } else {
-      const documentIndexes = [];
-      documentIndexes.push(documentIndex);
-      fileIndex[word] = documentIndexes;
-      returnValue = true;
-    }
-    return returnValue;
   }
 
   /**

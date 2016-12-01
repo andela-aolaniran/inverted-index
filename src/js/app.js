@@ -46,6 +46,7 @@ angular.module('invertedIndexModule', [])
         });
         $scope.tableFiles = $scope.invertedIndex.getIndex(searchNames);
       }
+      $scope.queryText = '';
     };
 
     /**
@@ -85,6 +86,7 @@ angular.module('invertedIndexModule', [])
           }
           $scope.tableFiles = $scope.invertedIndex.getIndex([file.name]);
           $scope.searchFile = file;
+          $scope.queryText = '';
         });
       };
 
