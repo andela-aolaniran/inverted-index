@@ -2,21 +2,10 @@ angular.module('invertedIndexModule', [])
   .controller('invertedIndexController', ($scope) => {
     // inverted index model
     $scope.invertedIndex = new InvertedIndex();
-    // Array to hold our files Index
-
-    // Array to hold files which I have reference to
     $scope.uploadedFiles = [];
-
-    // Array to hold files who's index have been created
     $scope.indexedFiles = [];
-
-    // Object to hold file names and their built index
     $scope.tableFiles = {};
-
-    // Object to hold table header based
-    // number of books in a file
     $scope.tableHeader = {};
-
 
     /**
     * Helper method to upload files from the
@@ -29,14 +18,14 @@ angular.module('invertedIndexModule', [])
       const files = Array.from(filesObject.target.files);
       $scope.invalidFiles = [];
       files.forEach((file) => {
-        if (file.type === 'application/json') {
-          $scope.$apply(() => {
+        $scope.$apply(() => {
+          if (file.type === 'application/json') {
             $scope.uploadedFiles.push(file);
             uploaded = true;
-          });
-        } else {
-          $scope.invalidFiles.push(file.name);
-        }
+          } else {
+            $scope.invalidFiles.push(file.name);
+          }
+        });
       });
       return uploaded;
     };
@@ -66,85 +55,86 @@ angular.module('invertedIndexModule', [])
     */
     $scope.createIndex = (file) => {
       let indexCreated = '';
-      // Catch errors when reading files
       if (!file) {
         $scope.indexingFeedback = 'Please select a file to generate index';
         return;
       }
       const reader = new FileReader();
       reader.onload = () => {
-        let jsonData = {};
+        let bookFile = {};
         try {
-          jsonData = JSON.parse(reader.result);
+          bookFile = JSON.parse(reader.result);
         } catch (err) {
           $scope.indexingFeedback = 'Could not read invalid JSON file';
           return;
         }
         $scope.indexingFeedback = '';
-        // create an array to hold docIds based
-        // on on the number of books in  jsonData
-        // const headerArray = Array.from(Array(jsonData.length).keys());
-        const tempArray = Array.from(jsonData);
+        const tempBooks = Array.from(bookFile);
         const titles = {};
-        tempArray.forEach((val, index) => {
-          titles[index] = (val.title);
+        tempBooks.forEach((value, index) => {
+          titles[index] = (value.title);
         });
-        indexCreated = $scope.invertedIndex.createIndex(file.name, jsonData);
-        // make changes in the angular loop to see them
-        // reflected in view
+        indexCreated = $scope.invertedIndex.createIndex(file.name, bookFile);
         $scope.$apply(() => {
-          // check to see that index was successfully created
           if (indexCreated === 'Index Created') {
             $scope.indexedFiles.push(file);
             $scope.tableHeader[file.name] = titles;
             $scope.filesIndex = $scope.invertedIndex.fileIndexes;
           } else {
-            // Show user feed back
             $scope.indexingFeedback = indexCreated;
           }
           $scope.tableFiles = $scope.invertedIndex.getIndex([file.name]);
           $scope.searchFile = file;
         });
       };
-        // read file object
-      reader.readAsBinaryString(file);
+
+      reader.readAsText(file);
       return indexCreated;
     };
 
-    $scope.getArray = (obj) => {
-      return Array.from(Object.keys(obj));
-      // console.log('Keys - ' + keys);
+    /**
+    * Method to get an array of keys in an object
+    * @param{Object} header - object who's keys are
+    * to be converted to an array
+    * @return{Array} Array containing all the keys in
+    * the object
+    */
+    $scope.headerList = (header) => {
+      const convertedKeys = Object.keys(header);
+      return Array.from(convertedKeys);
     };
 
-    $scope.number = (s) => {
-      return parseInt(s, 10);
+    /**
+    * Method to convert the string key to an object
+    * @param{String} key - key to be converted to a number
+    * @return{Number} a number value of the key
+    */
+    $scope.convertToInteger = (key) => {
+      const convertedKey = parseInt(key, 10);
+      return convertedKey;
     };
 
     /**
     * Method to search for words in our Index(es)
-    * @param {String} queryText - A string of words to search for
+    * @param {String} query - A string of words to search for
     * @param {Object} searchFile - An object holding information
     * of the file to search
     * @return {Undefined} returning nothing
     */
-    $scope.search = (queryText, searchFile) => {
-      // disallow search for empty query texts
-      if (!queryText || queryText.trim().length < 1) {
+    $scope.search = (query, searchFile) => {
+      if (!query || query.trim().length < 1) {
         return;
       }
-      // if search file is defined it means we aren't searching all files
       if (searchFile) {
         $scope.tableFiles = $scope.invertedIndex
-          .searchIndex(queryText, [searchFile.name]);
+          .searchIndex(query, [searchFile.name]);
       } else {
-        // create an array of all our indexed file names
-        const searchArray = [];
+        const searchTokens = [];
         $scope.indexedFiles.forEach((value) => {
-          searchArray.push(value.name);
+          searchTokens.push(value.name);
         });
-        // search for query text in all the indexed files
         $scope.tableFiles = $scope.invertedIndex
-          .searchIndex(queryText, searchArray);
+          .searchIndex(query, searchTokens);
       }
     };
 

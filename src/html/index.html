@@ -86,8 +86,8 @@
           </tr>
         </thead>        
         <tbody>
-        <tr ng-repeat="(key2, value2) in value"> <td>{{key2}}</td> <td ng-repeat="i in getArray(tableHeader[key])">
-        <!--<span class="glyphicon glyphicon-{{value2.indexOf(row) >= 0?'ok':'remove'}}"></span>--> <span class="glyphicon glyphicon-{{value2.indexOf(number(i)) >= 0 ? 'ok' : 'remove'}}"></span></td></tr>
+        <tr ng-repeat="(key2, value2) in value"> <td>{{key2}}</td> <td ng-repeat="headerIndex in headerList(tableHeader[key])">
+        <!--<span class="glyphicon glyphicon-{{value2.indexOf(row) >= 0?'ok':'remove'}}"></span>--> <span class="glyphicon glyphicon-{{value2.indexOf(convertToInteger(headerIndex)) >= 0 ? 'ok' : 'remove'}}"></span></td></tr>
         </tbody>
       </table>
       </div>
