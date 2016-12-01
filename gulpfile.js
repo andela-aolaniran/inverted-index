@@ -1,6 +1,7 @@
 // fetch dependencies
 const gulp = require('gulp');
 const browserSync = require('browser-sync');
+const concat = require('gulp-concat');
 
 // default task to start the server
 gulp.task('default', () => {
@@ -17,6 +18,7 @@ gulp.task('default', () => {
    jasmine spec directory */
 gulp.task('pipe_src_to_spec', () => {
   gulp.src(['./src/js/inverted-index.js', './src/js/utility.js'])
+    .pipe(concat('all.js'))
     .pipe(gulp.dest('./jasmine/spec'));
 });
 
@@ -52,4 +54,22 @@ gulp.task('spec_files_watcher', () => {
     port: 3011
   });
   gulp.watch('./jasmine/spec/*.js', specServer.reload);
+});
+
+gulp.task('concat', () => {
+  gulp.src('src/js/*.js')
+    .pipe(concat('all.js'))
+    .pipe(gulp.dest('public/js'));
+});
+
+gulp.task('serve_public', () => {
+  const publicServer = browserSync.create();
+  // set up browser sync for public files
+  publicServer.init({
+    server: {
+      baseDir: './public/',
+      index: './views/index.html'
+    },
+    port: process.env.PORT || 3015
+  });
 });

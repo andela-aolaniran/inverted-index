@@ -1,24 +1,3 @@
-const book = [
-  {
-    title: 'Alice in Wonderland',
-    text: `Alice falls into a rabbit hole and enters
-     a world full of imagination.`
-  },
-
-  {
-    title: 'The Lord of the Rings: The Fellowship of the Ring.',
-    text: `An unusual alliance of man, elf, dwarf,
-      wizard and hobbit seek to destroy a powerful ring.`
-  }
-];
-const book2 = [
-  {
-    title: 'Azeez is good',
-    text: `Wow, being Alive is cool. An opportunity
-      to create something that could possibly outlive me`
-  }
-];
-
 // Name of the bookfile
 const fileName = 'myBooks';
 const fileName2 = 'yourBooks';
@@ -28,26 +7,30 @@ const invertedIndex = new InvertedIndex();
 
 describe('Read book Data:', () => {
   it('should read a json file and assert that it is not empty', () => {
-    expect(invertedIndex.createIndex(fileName, [])).toEqual('Invalid File');
+    expect(invertedIndex.readBook(empty_book)).toEqual(false);
+    expect(invertedIndex.readBook()).toEqual(false);
+    expect(invertedIndex.readBook(empty_book)).toEqual(false);
   });
 });
 
 describe('Populate Index', () => {
   beforeEach(() => {
-    invertedIndex.createIndex(fileName, book);
+    if(invertedIndex.readBook(books)){
+      invertedIndex.createIndex(fileName, books);
+    }
   });
   it(`verifies that the index is created once the JSON
     file has been read`, () => {
-    expect(invertedIndex.getIndex(fileName, book))
+    expect(invertedIndex.getIndex([fileName], books))
       .toBeTruthy();
-    expect(invertedIndex.getIndex(fileName2, book2))
-      .toBeFalsy();
+    expect(invertedIndex.getIndex([fileName2], books_2))
+      .toBeTruthy();
   });
 });
 
 describe('Search Index', () => {
   beforeEach(() => {
-    invertedIndex.createIndex(book);
+    invertedIndex.createIndex(fileName, books);
   });
   it('searches the index and returns the right results', () => {
     const searchResult = invertedIndex
@@ -57,4 +40,3 @@ describe('Search Index', () => {
     expect(searchResult[fileName].azeez).toEqual([]);
   });
 });
-

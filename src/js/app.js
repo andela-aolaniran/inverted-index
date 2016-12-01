@@ -69,6 +69,9 @@ angular.module('invertedIndexModule', [])
           $scope.indexingFeedback = 'Could not read invalid JSON file';
           return;
         }
+        if (!$scope.invertedIndex.readBook(bookFile)) {
+          return;
+        }
         $scope.indexingFeedback = '';
         const tempBooks = Array.from(bookFile);
         const titles = {};
@@ -109,7 +112,7 @@ angular.module('invertedIndexModule', [])
     /**
     * Method to convert the string key to an object
     * @param{String} key - key to be converted to a number
-    * @return{Number} a number value of the String key
+    * @return{Number} a number value of the string key
     */
     $scope.convertToInteger = (key) => {
       const convertedKey = parseInt(key, 10);

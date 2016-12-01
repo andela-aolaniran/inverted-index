@@ -42,7 +42,7 @@ class InvertedIndex {
   * @return {String} A message describing the status of the operation
   */
   createIndex(fileName, books) {
-    if (!InvertedIndex.isBooksValid(books)) {
+    if (!this.readBook(books)) {
       return 'Invalid File';
     }
     if (this.fileIndexes[fileName]) {
@@ -81,7 +81,7 @@ class InvertedIndex {
   * @param {Array} books - The array of books to verify
   * @return {Boolean} true if the books is valid and false otherwise
   */
-  static isBooksValid(books) {
+  readBook(books) {
     if (Array.isArray(books) && books.length > 0) {
       return true;
     }
