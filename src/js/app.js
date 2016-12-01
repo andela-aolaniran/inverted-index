@@ -17,6 +17,7 @@ angular.module('invertedIndexModule', [])
     // number of books in a file
     $scope.tableHeader = {};
 
+
     /**
     * Helper method to upload files from the
     * front end using HTML 5 api
@@ -33,6 +34,24 @@ angular.module('invertedIndexModule', [])
         });
       });
       return uploaded;
+    };
+
+    /**
+    * Method to show correct index when the user selects
+    * what file to match the searches across
+    * @param{File} searchFile - file to match the search across
+    * @return{undefined}
+    */
+    $scope.searchFileChanged = (searchFile) => {
+      if (searchFile) {
+        $scope.tableFiles = $scope.invertedIndex.getIndex([searchFile.name]);
+      } else {
+        const searchNames = [];
+        $scope.indexedFiles.forEach((file) => {
+          searchNames.push(file.name);
+        });
+        $scope.tableFiles = $scope.invertedIndex.getIndex(searchNames);
+      }
     };
 
     /**
@@ -73,7 +92,8 @@ angular.module('invertedIndexModule', [])
             // Show user feed back
             $scope.indexingFeedback = indexCreated;
           }
-          $scope.tableFiles = $scope.invertedIndex.getIndex(file.name);
+          $scope.tableFiles = $scope.invertedIndex.getIndex([file.name]);
+          $scope.searchFile = file;
         });
       };
         // read file object

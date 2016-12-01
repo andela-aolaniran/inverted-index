@@ -15,7 +15,7 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Inverted Index Web App</a>
+      <a class="navbar-brand" href="#">Inverted Index Web App By Olaniran Azeez</a>
     </div>
 
       <ul class="nav navbar-nav navbar-right">
@@ -59,7 +59,7 @@
     </div>
       <div class="input-group" ng-show="filesIndex">
       <span style="min-width: 100px" class="input-group-btn">
-          <select  ng-model="searchFile" class="form-control" ng-options="file.name.replace('.json', '') for file in indexedFiles"> 
+          <select  ng-model="searchFile" class="form-control" ng-options="file.name.replace('.json', '') for file in indexedFiles" ng-change="searchFileChanged(searchFile)"> 
         <option value="" selected="selected">All</option>
         </select> 
         </span>

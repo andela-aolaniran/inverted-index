@@ -108,20 +108,18 @@ class InvertedIndex {
 
   /**
   * Get the index map of a specific file name from the files map
-  * @param {String} fileName - Name of file to search for
-  * @return {Object} - An object containing the index of books in
-  * the file or null if the file isn't in the index
+  * @param {Array} fileNames - Array of file names to search for
+  * @return {Object} - An object containing the indexes for books in each file
+  * or an empty object
   */
-  getIndex(fileName) {
-    // return the index map for the specific file
-    // if it exists in our files map
-    const fileIndex = {};
-    if (this.fileIndexes[fileName]) {
-      fileIndex[fileName] = this.fileIndexes[fileName];
-      return fileIndex;
-    }
-    // return an empty Map
-    return null;
+  getIndex(fileNames) {
+    const foundIndexes = {};
+    fileNames.forEach((fileName) => {
+      if (this.fileIndexes[fileName]) {
+        foundIndexes[fileName] = this.fileIndexes[fileName];
+      }
+    });
+    return foundIndexes;
   }
 
 
