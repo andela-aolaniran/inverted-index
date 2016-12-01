@@ -27,11 +27,16 @@ angular.module('invertedIndexModule', [])
     $scope.uploadFile = (filesObject) => {
       let uploaded = false;
       const files = Array.from(filesObject.target.files);
+      $scope.invalidFiles = [];
       files.forEach((file) => {
-        $scope.$apply(() => {
-          $scope.uploadedFiles.push(file);
-          uploaded = true;
-        });
+        if (file.type === 'application/json') {
+          $scope.$apply(() => {
+            $scope.uploadedFiles.push(file);
+            uploaded = true;
+          });
+        } else {
+          $scope.invalidFiles.push(file.name);
+        }
       });
       return uploaded;
     };
@@ -78,7 +83,12 @@ angular.module('invertedIndexModule', [])
         $scope.indexingFeedback = '';
         // create an array to hold docIds based
         // on on the number of books in  jsonData
-        const headerArray = Array.from(Array(jsonData.length).keys());
+        // const headerArray = Array.from(Array(jsonData.length).keys());
+        const tempArray = Array.from(jsonData);
+        const titles = {};
+        tempArray.forEach((val, index) => {
+          titles[index] = (val.title);
+        });
         indexCreated = $scope.invertedIndex.createIndex(file.name, jsonData);
         // make changes in the angular loop to see them
         // reflected in view
@@ -86,7 +96,7 @@ angular.module('invertedIndexModule', [])
           // check to see that index was successfully created
           if (indexCreated === 'Index Created') {
             $scope.indexedFiles.push(file);
-            $scope.tableHeader[file.name] = headerArray;
+            $scope.tableHeader[file.name] = titles;
             $scope.filesIndex = $scope.invertedIndex.fileIndexes;
           } else {
             // Show user feed back
@@ -99,6 +109,15 @@ angular.module('invertedIndexModule', [])
         // read file object
       reader.readAsBinaryString(file);
       return indexCreated;
+    };
+
+    $scope.getArray = (obj) => {
+      return Array.from(Object.keys(obj));
+      // console.log('Keys - ' + keys);
+    };
+
+    $scope.number = (s) => {
+      return parseInt(s, 10);
     };
 
     /**

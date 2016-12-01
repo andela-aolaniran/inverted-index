@@ -44,6 +44,7 @@
       </div>
       <div>
         <h5 class="warningfeedback">{{indexingFeedback}}</h5>
+        <p class="warningfeedback" ng-repeat="file in invalidFiles"> {{file}} is invalid.</p>
       </div>
     </div>
     <div class="col-sm-8 text-left main">
@@ -81,11 +82,12 @@
           <tr>
             <th style="text-align: center">Word</th>
             <!-- index[1] is a word<==>set map -->
-            <th style="text-align: center" ng-repeat="tableHead in tableHeader[key]">Doc {{tableHead + 1}}</th>            
+            <th style="text-align: center" ng-repeat="tableHead in tableHeader[key]">{{tableHead}}</th>            
           </tr>
         </thead>        
         <tbody>
-        <tr ng-repeat="(key2, value2) in value"> <td>{{key2}}</td> <td ng-repeat="row in tableHeader[key]"><span class="glyphicon glyphicon-{{value2.indexOf(row) >= 0?'ok':'remove'}}"></span></td></tr>
+        <tr ng-repeat="(key2, value2) in value"> <td>{{key2}}</td> <td ng-repeat="i in getArray(tableHeader[key])">
+        <!--<span class="glyphicon glyphicon-{{value2.indexOf(row) >= 0?'ok':'remove'}}"></span>--> <span class="glyphicon glyphicon-{{value2.indexOf(number(i)) >= 0 ? 'ok' : 'remove'}}"></span></td></tr>
         </tbody>
       </table>
       </div>
