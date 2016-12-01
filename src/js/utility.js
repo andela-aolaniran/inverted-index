@@ -29,7 +29,8 @@ class Utility {
   * @param {Map} fileIndex - Map to hold words and their indexes
   * @param {String} word - Word to be added to the fileIndex
   * @param {Number} documentIndex - ID of document in which the word exists
-  * @return {Boolean} True if word was added to the index map or false otherwise
+  * @return {Boolean} True if the word was added to the index map
+  * or false otherwise
   */
   static addWordToFileIndex(fileIndex, word, documentIndex) {
     let returnValue = false;

@@ -109,7 +109,7 @@ angular.module('invertedIndexModule', [])
     /**
     * Method to convert the string key to an object
     * @param{String} key - key to be converted to a number
-    * @return{Number} a number value of the key
+    * @return{Number} a number value of the String key
     */
     $scope.convertToInteger = (key) => {
       const convertedKey = parseInt(key, 10);

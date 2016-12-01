@@ -1,10 +1,10 @@
 /**
-* A class to implemnt search using
+* A class to implement search using
 * inverted index functionality
 */
 class InvertedIndex {
   /**
-  *Constructor for the inverted index class
+  * Constructor for the inverted-index class
   */
   constructor() {
     this.fileIndexes = {};
@@ -36,7 +36,7 @@ class InvertedIndex {
   }
 
   /**
-  * Creates Index for a specific file and add it to the files Map
+  * Creates Index for a specific file and add it to the files map
   * @param {String} fileName - Name of the book file
   * @param {Array} books - Array of books in the file
   * @return {String} A message describing the status of the operation
@@ -61,7 +61,7 @@ class InvertedIndex {
   }
 
   /**
-  * Get the index map of a specific file name from the files map
+  * Get the index map of a specific file names from the files map
   * @param {Array} fileNames - Array of file names to search for
   * @return {Object} - An object containing the indexes for books in each file
   * or an empty object
@@ -77,8 +77,8 @@ class InvertedIndex {
   }
 
   /**
-  * Adds two numbers
-  * @param {Array} books The array of books to verify
+  * Method to test if a book is valid
+  * @param {Array} books - The array of books to verify
   * @return {Boolean} true if the books is valid and false otherwise
   */
   static isBooksValid(books) {
