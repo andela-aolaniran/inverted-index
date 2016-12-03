@@ -42,9 +42,6 @@ class InvertedIndex {
   * @return {String} A message describing the status of the operation
   */
   createIndex(fileName, books) {
-    if (!this.readBook(books)) {
-      return 'Invalid File';
-    }
     if (this.fileIndexes[fileName]) {
       return 'Index Already Exists';
     }
