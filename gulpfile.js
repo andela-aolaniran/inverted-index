@@ -55,21 +55,3 @@ gulp.task('spec_files_watcher', () => {
   });
   gulp.watch('./jasmine/spec/*.js', specServer.reload);
 });
-
-gulp.task('concat', () => {
-  gulp.src('src/js/*.js')
-    .pipe(concat('all.js'))
-    .pipe(gulp.dest('public/js'));
-});
-
-gulp.task('serve_public', () => {
-  const publicServer = browserSync.create();
-  // set up browser sync for public files
-  publicServer.init({
-    server: {
-      baseDir: './public/',
-      index: './views/index.html'
-    },
-    port: process.env.PORT || 3015
-  });
-});
