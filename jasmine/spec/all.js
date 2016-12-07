@@ -19,7 +19,7 @@ class InvertedIndex {
   */
   searchIndex(query, fileNames) {
     const fileIndexResult = {};
-    const tokens = Utility.tokenize(query);
+    const tokens = InvertedIndexUtility.tokenize(query);
     fileNames.forEach((fileName) => {
       const builtFileIndex = {};
       const fileIndex = this.fileIndexes[fileName];
@@ -48,9 +48,10 @@ class InvertedIndex {
 
     const fileIndex = {};
     books.forEach((value, index) => {
-      const words = Utility.tokenize(Utility.getAllText(value));
+      const words = InvertedIndexUtility.tokenize(InvertedIndexUtility
+        .getAllText(value));
       words.forEach((word) => {
-        Utility.addWordToFileIndex(fileIndex, word, index);
+        InvertedIndexUtility.addWordToFileIndex(fileIndex, word, index);
       });
     });
     this.fileIndexes[fileName] = fileIndex;
@@ -90,7 +91,7 @@ class InvertedIndex {
 * Class to holding helper functions
 * for InvertedIndex class
 */
-class Utility {
+class InvertedIndexUtility {
   /**
   * Helper method to get an array of all words in a particular text
   * @param {String} text - String to be normalized and tokenized

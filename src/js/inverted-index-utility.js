@@ -2,7 +2,7 @@
 * Class to holding helper functions
 * for InvertedIndex class
 */
-class Utility {
+class InvertedIndexUtility {
   /**
   * Helper method to get an array of all words in a particular text
   * @param {String} text - String to be normalized and tokenized
