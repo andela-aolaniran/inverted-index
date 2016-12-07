@@ -31,27 +31,6 @@ inverted-index is implemented using a number of technologies:
   - It doesn't save a search session
   - Files must have a specific structure for index to be created
 
-### Development
-Want to contribute? Great!
-inverted-index uses Gulp to speed up development proces
-Make a change in your file and instantanously see your updates!
-(Note that you must have node and npm installed)
-Open your favorite Terminal and run these commands.
-
-First Tab:
-```sh
-$ npm install
-```
-Second Tab:
-```sh
-$ gulp src_files_watcher
-```
-
-Third Tab:
-```sh
-$ gulp spec_files_watcher
-```
-
 License
 ----
 
