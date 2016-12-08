@@ -42,7 +42,6 @@
     "browser-sync": "^2.18.2",
     "connect": "^3.5.0",
     "gulp": "^3.9.1",
-    "nodemon": "^1.11.0",
-    "gulp-concat": "^2.6.1"
+    "nodemon": "^1.11.0"
   }
 }

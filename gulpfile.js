@@ -1,7 +1,6 @@
 // fetch dependencies
 const gulp = require('gulp');
 const browserSync = require('browser-sync');
-const concat = require('gulp-concat');
 
 // default task to start the server
 gulp.task('default', () => {
@@ -12,14 +11,6 @@ gulp.task('default', () => {
     },
     port: process.env.PORT || 3013
   });
-});
-
-/* gulp task to pipe src file to the
-   jasmine spec directory */
-gulp.task('pipe_src_to_spec', () => {
-  gulp.src(['./src/js/inverted-index.js', './src/js/inverted-index-utility.js'])
-    .pipe(concat('all.js'))
-    .pipe(gulp.dest('./jasmine/spec'));
 });
 
 /* task to reload browser whenever
@@ -38,7 +29,7 @@ gulp.task('src_files_watcher', () => {
      whenever any of the src files change */
   gulp.watch(['./src/js/*.js',
     './src/html/*.html', './src/css/*.css'],
-    ['pipe_src_to_spec', srcServer.reload]);
+    srcServer.reload);
 });
 
 /* gulp task to reload the jasmine browser
@@ -48,10 +39,15 @@ gulp.task('spec_files_watcher', () => {
   // set up browser sync for spec files
   specServer.init({
     server: {
-      baseDir: './jasmine/',
+      baseDir: ['./jasmine/', './src/js/'],
       index: './SpecRunner.html'
     },
     port: 3011
   });
-  gulp.watch('./jasmine/spec/*.js', specServer.reload);
+  gulp.watch([
+    './jasmine/spec/*.js',
+    './src/css/*.css',
+    './src/html/*.html',
+    './src/js/*.js'
+    ], specServer.reload);
 });
