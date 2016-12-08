@@ -48,10 +48,9 @@ class InvertedIndex {
 
     const fileIndex = {};
     books.forEach((value, index) => {
-      const words = InvertedIndexUtility.tokenize(InvertedIndexUtility
-        .getAllText(value));
+      const words = InvertedIndexUtility.tokenize(this.getAllText(value));
       words.forEach((word) => {
-        InvertedIndexUtility.addWordToFileIndex(fileIndex, word, index);
+        this.addWordToFileIndex(fileIndex, word, index);
       });
     });
     this.fileIndexes[fileName] = fileIndex;
@@ -84,5 +83,37 @@ class InvertedIndex {
       return true;
     }
     return false;
+  }
+
+  /**
+  * Method to get all text(text and title) in a specific book
+  * @param {Object} book - book object from which
+  * we want to extract all text (title and text)
+  * @return {String} - a string containing all texts in the book
+  */
+  getAllText(book) {
+    return `${book.title} ${book.text}`;
+  }
+
+  /**
+  * Method to add a word and its documentIndex to an index
+  * @param {Map} fileIndex - Map to hold words and their indexes
+  * @param {String} word - Word to be added to the fileIndex
+  * @param {Number} documentIndex - ID of document in which the word exists
+  * @return {Boolean} True if the word was added to the index map
+  * or false otherwise
+  */
+  addWordToFileIndex(fileIndex, word, documentIndex) {
+    let returnValue = false;
+    if (fileIndex[word] && fileIndex[word].indexOf(documentIndex) < 0) {
+      fileIndex[word].push(documentIndex);
+      returnValue = true;
+    } else {
+      const documentIndexes = [];
+      documentIndexes.push(documentIndex);
+      fileIndex[word] = documentIndexes;
+      returnValue = true;
+    }
+    return returnValue;
   }
 }
