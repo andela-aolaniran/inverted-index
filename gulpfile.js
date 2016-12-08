@@ -9,6 +9,7 @@ gulp.task('default', () => {
       baseDir: './src/',
       index: 'html/index.html'
     },
+    ghostMode: false,
     port: process.env.PORT || 3013
   });
 });
@@ -23,6 +24,7 @@ gulp.task('src_files_watcher', () => {
       baseDir: './src/',
       index: './html/index.html'
     },
+    ghostMode: false,
     port: 3009
   });
   /* reload index.html in the browser
@@ -42,6 +44,7 @@ gulp.task('spec_files_watcher', () => {
       baseDir: ['./jasmine/', './src/js/'],
       index: './SpecRunner.html'
     },
+    ghostMode: false,
     port: 3011
   });
   gulp.watch([
