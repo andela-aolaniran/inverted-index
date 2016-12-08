@@ -79,7 +79,10 @@ class InvertedIndex {
   * @return {Boolean} true if the books is valid and false otherwise
   */
   readBook(books) {
-    if (Array.isArray(books) && books.length > 0) {
+    if (Array.isArray(books)
+      && books.length > 0
+      && books[0].title
+      && books[0].text) {
       return true;
     }
     return false;

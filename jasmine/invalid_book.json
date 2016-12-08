@@ -1,0 +1,6 @@
+invalid_book =[
+  {
+    "appName": "hello world",
+    "appResources": "No resources :)"
+  }
+]

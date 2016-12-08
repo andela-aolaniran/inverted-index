@@ -6,9 +6,15 @@ const fileName2 = 'yourBooks';
 const invertedIndex = new InvertedIndex();
 
 describe('Read book Data:', () => {
-  it('should read a json file and assert that it is not empty', () => {
+  it('should read a book.json file and assert that it is not empty', () => {
     expect(invertedIndex.readBook(empty_book)).toEqual(false);
-    expect(invertedIndex.readBook()).toEqual(false);
+  });
+  it('should read a book.json file and assert that it is wrongly formatted', () => {
+    expect(invertedIndex.readBook(invalid_book)).toEqual(false);
+  });
+  it(`should read a book.json file and assert that it is
+   correctly formatted`, () => {
+    expect(invertedIndex.readBook(books)).toEqual(true);
   });
 });
 
@@ -22,15 +28,12 @@ describe('Populate Index', () => {
     file has been read`, () => {
     expect(invertedIndex.getIndex([fileName], books))
       .toBeTruthy();
-    expect(invertedIndex.getIndex([fileName2], books_2))
-      .toBeTruthy();
   });
 });
 
 describe('Search Index', () => {
   let searchResult = '';
   beforeEach(() => {
-    invertedIndex.createIndex(fileName, books);
     searchResult = invertedIndex
       .searchIndex('alice in and elf man azeez', [fileName]);
   });
