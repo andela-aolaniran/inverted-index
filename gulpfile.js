@@ -1,6 +1,8 @@
 // fetch dependencies
 const gulp = require('gulp');
 const browserSync = require('browser-sync');
+const browserify = require('gulp-browserify');
+const rename = require('gulp-rename');
 
 // default task to start the server
 gulp.task('default', () => {
@@ -34,6 +36,14 @@ gulp.task('src_files_watcher', () => {
     srcServer.reload);
 });
 
+
+gulp.task('scripts', () => {
+ gulp.src('jasmine/spec/inverted-index-test.js')
+   .pipe(browserify())
+   .pipe(rename('bundle.js'))
+   .pipe(gulp.dest('jasmine/testfiles'));
+});
+
 /* gulp task to reload the jasmine browser
    whenever any of the spec test files change */
 gulp.task('spec_files_watcher', () => {
@@ -52,5 +62,6 @@ gulp.task('spec_files_watcher', () => {
     './src/css/*.css',
     './src/html/*.html',
     './src/js/*.js'
-    ], specServer.reload);
+    ], ['scripts', specServer.reload]);
 });
+  
