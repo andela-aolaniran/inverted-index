@@ -14,7 +14,7 @@ module.exports=[
 },{}],2:[function(require,module,exports){
 module.exports=[]
 },{}],3:[function(require,module,exports){
-module.exports=invalid_book =[
+module.exports=[
   {
     "title": "hello world",
     "text": "No resources :)"
