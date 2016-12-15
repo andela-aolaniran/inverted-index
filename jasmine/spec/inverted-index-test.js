@@ -10,21 +10,21 @@ const fileName = 'myBooks';
 
 describe('Read book Data:', () => {
   it('should read a book.json file and assert that it is not empty', () => {
-    expect(invertedIndex.readBook(emptyBook)).toEqual(false);
+    expect(invertedIndex.validateBook(emptyBook)).toEqual(false);
   });
   it(`should read a book.json file and assert 
     that it is wrongly formatted`, () => {
-    expect(invertedIndex.readBook(invalidBook)).toEqual(false);
+    expect(invertedIndex.validateBook(invalidBook)).toEqual(false);
   });
   it(`should read a book.json file and assert that it is
    correctly formatted`, () => {
-    expect(invertedIndex.readBook(books)).toEqual(true);
+    expect(invertedIndex.validateBook(books)).toEqual(true);
   });
 });
 
 describe('Populate Index', () => {
   beforeEach(() => {
-    if (invertedIndex.readBook(books)) {
+    if (invertedIndex.validateBook(books)) {
       invertedIndex.createIndex(fileName, books);
     }
   });

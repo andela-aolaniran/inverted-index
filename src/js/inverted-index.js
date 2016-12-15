@@ -78,7 +78,7 @@ class InvertedIndex {
   * @param {Array} books - The array of books to verify
   * @return {Boolean} true if the books is valid and false otherwise
   */
-  readBook(books) {
+  validateBook(books) {
     if (Array.isArray(books)
       && books.length > 0
       && books[0].title
