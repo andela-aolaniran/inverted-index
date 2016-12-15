@@ -16,7 +16,11 @@ module.exports=[]
 },{}],3:[function(require,module,exports){
 module.exports=invalid_book =[
   {
-    "appName": "hello world",
+    "title": "hello world",
+    "text": "No resources :)"
+  },
+  {
+    "title": "hello world",
     "appResources": "No resources :)"
   }
 ]

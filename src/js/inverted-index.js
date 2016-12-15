@@ -79,13 +79,19 @@ class InvertedIndex {
   * @return {Boolean} true if the books is valid and false otherwise
   */
   validateBook(books) {
-    if (Array.isArray(books)
-      && books.length > 0
-      && books[0].title
-      && books[0].text) {
-      return true;
+    // check that is an array and not empty
+    let bookValid = (Array.isArray(books) && books.length > 0);
+    if (!bookValid) {
+      return false;
     }
-    return false;
+    books.forEach((book) => {
+      // if anybook is invalid in the list of books
+      // then the books file is invalid
+      if (!book.title || !book.text) {
+        bookValid = false;
+      }
+    });
+    return bookValid;
   }
 
   /**
