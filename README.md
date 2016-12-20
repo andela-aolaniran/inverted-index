@@ -1,7 +1,7 @@
 # inverted-index
 [![Build Status](https://travis-ci.org/andela-aolaniran/inverted-index.svg?branch=development)](https://travis-ci.org/andela-aolaniran/inverted-index) [![Coverage Status](https://coveralls.io/repos/github/andela-aolaniran/inverted-index/badge.png?branch=development)](https://coveralls.io/github/andela-aolaniran/inverted-index?branch=development)
 
-### Inverted Index
+### Inverted Index - [https://aolaniran-inverted-index.herokuapp.com/](https://aolaniran-inverted-index.herokuapp.com/) 
 An inverted index (also referred to as postings file or inverted file) is an index data structure storing a mapping from content, such as words or numbers, to its locations in a database file, or in a document or a set of documents (named in contrast to a Forward Index, which maps from documents to content). The purpose of an inverted index is to allow fast full text searches, at a cost of increased processing when a document is added to the database.
 
 ### How to use
