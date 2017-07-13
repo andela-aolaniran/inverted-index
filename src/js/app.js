@@ -69,7 +69,7 @@ angular.module('invertedIndexModule', [])
           $scope.indexingFeedback = 'Could not read invalid JSON file';
           return;
         }
-        if (!$scope.invertedIndex.readBook(bookFile)) {
+        if (!$scope.invertedIndex.validateBook(bookFile)) {
           return;
         }
         $scope.indexingFeedback = '';

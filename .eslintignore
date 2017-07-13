@@ -7,3 +7,4 @@ jasmine/lib/jasmine-2.3.4/jasmine-html.js
 jasmine/lib/jasmine-2.3.4/jasmine.css
 gulpfile.js
 karma.conf.js
+jasmine/testfiles/bundle.js
